@@ -84,6 +84,12 @@ p:hover{
     padding-left: 5px;
     padding-right: 10px;
 }
+.add{
+    background-color: #66a8e9;
+    border-radius: 5px;
+    margin-left: 100px;
+    padding: 5px;
+     }
 
 
 
