@@ -137,10 +137,12 @@ document.getElementById('search').addEventListener('input', function () {
 
 document.querySelectorAll('[data-tab]').forEach(tab => {
     tab.addEventListener('click', function () {
-        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[data-tab]').forEach(el => el.classList.remove('active'));
         this.classList.add('active');
-        renderBooks(this.getAttribute('data-tab'));
+        const filter = this.getAttribute('data-tab')
+        renderBooks(filter);
     });
 });
 
-renderBooks();
+
+
