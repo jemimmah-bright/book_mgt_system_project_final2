@@ -1,98 +1,85 @@
+body {
+    background-color: rgb(186, 236, 236);
+    margin: 0;
+    padding: 0;
+  }
 
-.search-bar{
-    margin-top: 20px;
-    margin-left: 800px;
-    margin-top: -15px;
-}
-.search-input{
+  .main-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+  }
+
+  .side-bar {
+    background-color: lightblue;
     padding: 10px;
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-left: 900px;
-    margin-top: -15px;
-    
-}
+    width: 220px;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+  }
 
-.search-bar{
-    padding: 15px;
-    border:none;
-    border-radius: 10px;
-    background-color: lightskyblue;
-    color: white;
-    cursor: pointer;
-    margin-left: 100px;
-    margin-top: -15px;
-}
-.row{
-    margin-left: 150px;}
-
-
-.search-bar{
-    margin-top: 20px;
-    margin-left: 800px;
-    margin-top: -15px;
-}
-.search-input{
-    padding: 10px;
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-left: 900px;
-    margin-top: -15px;
-    
-}
-
-.search-bar{
-    padding: 15px;
-    border:none;
-    border-radius: 10px;
-    background-color: lightskyblue;
-    color: white;
-    cursor: pointer;
-    margin-top: -15px;
-    margin-left: -100px;
-}
-
-.search-bar:hover{
-    background-color: wheat;
-}
-p{
+  .side-bar p {
     font-size: 17px;
     padding: 10px;
     color: black;
-    
-    
-
-}
-.side-bar{
-    background-color: lightblue;
-    padding: 10px;
-    position: fixed;
-    margin-top: -140px;
-    height: 20cm;
-    width: 190px;
-    font-weight: bold;
-    
-}
-p:hover{
-    background-color:rgb(123, 123, 252);
     cursor: pointer;
+  }
+
+  .side-bar p:hover {
+    background-color: rgb(123, 123, 252);
     padding-left: 5px;
-    padding-right: 10px;
-}
-.add{
+  }
+
+  .content-area {
+    flex: 1;
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+    padding: 10px;
+  }
+
+  .search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .search-input {
+    padding: 10px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .search-bar {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: lightskyblue;
+    color: white;
+    cursor: pointer;
+  }
+
+  .search-bar:hover {
+    background-color: wheat;
+  }
+
+  .add {
     background-color: blue;
     border-radius: 5px;
-    margin-left: 500px;
-    padding: 5px;
+    padding: 8px 16px;
     color: white;
-     }
+    margin-bottom: 20px;
+  }
 
-
-
-   
-
-
- 
-  
+  .card-img-top {
+    height: 250px;
+    object-fit: cover;
+  }
