@@ -121,6 +121,69 @@ document.getElementById('search').addEventListener('input', function () {
         book.title.toLowerCase().includes(query) || 
         book.author.toLowerCase().includes(query)
     );
+
+
+    document.querySelector('.search-bar').addEventListener('click', function () {
+        const query = document.getElementById('search').value.trim().toLowerCase();
+        if (!query) return;
+
+        const localMatches = books.filter(book=>
+            book.title.toLowerCase().includes(query) ||
+             book.author.toLowerCase().includes (query)
+        );
+
+        if (localMatches.length>0) {
+            displayBooks(localMatches, true);
+            return;
+        }
+
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.items && data.items.length > 0) {
+                const publicBooks = data.items.map(item =>{
+                    const info = item.volumeInfo;
+                    return{
+                        title: info.title || "No title",
+                        author: (info.authors && info.authors.join(',')) || "Unknown Author",
+                        genre: info.categories? info.categories[0]: "General",
+                        image: info.imageLinks?.thumbnail || 'https://via.placeholder.com/150',
+                        link: info.previewLink || "#"
+                    };
+                });
+                displayBooks(publicBooks,false);
+                
+                }
+                else {
+                    document.getElementById('bool-list').innerHTML = "<p class='text-white'>No books found.</p>";
+            }
+        })
+        .catch(err =>{
+            console.error("Error fetching from google Books API:", err);
+            document.getElementById('book-list').innerHTML= "<p class='text-white'>Failed to fetch public book.</p>";
+        });
+    })
+
+    function displayBooks(bookArray, isLocal = true) {
+    document.getElementById('book-list').innerHTML = bookArray.map(book => `
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img src="${book.image}" class="card-img-top" alt="${book.title}">
+                <div class="card-body">
+                    <h5 class="card-title">${book.title}</h5>
+                    <p class="card-text">${book.author} - ${book.genre}</p>
+                    ${isLocal ? `
+                    <button onclick="editBook('${book.id}')" class="btn btn-warning">Edit</button>
+                    <button onclick="deleteBook('${book.id}')" class="btn btn-danger">Delete</button>
+                    <button onclick="toggleFavorite('${book.id}')" class="btn btn-secondary">
+                        ${book.favorite ? 'Unfavorite' : 'Favorite'}
+                    </button>` : ''}
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+    
     renderBooks();
     document.getElementById('book-list').innerHTML = filteredBooks.map(book => `
         <div class="col-md-4 mb-3">
@@ -137,10 +200,12 @@ document.getElementById('search').addEventListener('input', function () {
 
 document.querySelectorAll('[data-tab]').forEach(tab => {
     tab.addEventListener('click', function () {
-        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        document.querySelectorAll('[data-tab]').forEach(el => el.classList.remove('active'));
         this.classList.add('active');
-        renderBooks(this.getAttribute('data-tab'));
+        const filter = this.getAttribute('data-tab')
+        renderBooks(filter);
     });
 });
 
-renderBooks();
+
+
